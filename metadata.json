@@ -1,0 +1,7 @@
+{
+  "name": "Utkarsh Ravaliya Portfolio",
+  "description": "A professional developer portfolio for Utkarsh Ravaliya, featuring AI, Data Analysis, and Web Development expertise.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
