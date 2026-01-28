@@ -4,6 +4,7 @@ import { Experience, Project, Education, SkillCategory } from './types';
 export const PERSONAL_INFO = {
   name: "Utkarsh Ramshibhai Ravaliya",
   title: "Software Developer & Data Analyst",
+  headline: "Building Intelligent Web Solutions & Data-Driven Systems",
   email: "utkarshravliya1234@gmail.com",
   phone: "8980113564",
   linkedin: "https://linkedin.com/in/utkarsh-ravaliya",
@@ -60,7 +61,8 @@ export const PROJECTS: Project[] = [
       "Performed key preprocessing tasks including handling missing values, removing duplicates, and treating outliers.",
       "Automated repetitive cleaning steps using Pandas to improve efficiency and ensure consistent data quality.",
       "Visualized data distribution and anomalies using Python plotting tools."
-    ]
+    ],
+    sourceUrl: "https://github.com/Utkarsh28-bit"
   },
   {
     title: "Jarvis Virtual Assistant",
@@ -70,8 +72,12 @@ export const PROJECTS: Project[] = [
       "Built an intelligent virtual assistant capable of executing voice commands and automating system tasks.",
       "Implemented speech recognition and TTS modules for human-like two-way interaction.",
       "Added utilities for checking weather, news, reading emails, and setting reminders.",
-      "Optimized performance for smooth execution on low-end systems using lightweight libraries."
-    ]
+      "Optimized performance for smooth execution on low-end systems using lightweight libraries.",
+      "Integrated a web-based version of this assistant into this portfolio (Try the 'Live Demo'!)."
+    ],
+    demoUrl: "https://github.com/Utkarsh28-bit",
+    sourceUrl: "https://github.com/Utkarsh28-bit",
+    hasInteractiveDemo: true
   }
 ];
 

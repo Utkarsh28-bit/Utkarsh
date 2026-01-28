@@ -11,6 +11,9 @@ export interface Project {
   technologies: string[];
   period: string;
   highlights: string[];
+  demoUrl?: string;
+  sourceUrl?: string;
+  hasInteractiveDemo?: boolean;
 }
 
 export interface Education {

@@ -1,8 +1,25 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { PERSONAL_INFO } from '../constants';
 
 const ContactSection: React.FC = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+
+    setStatus('submitting');
+    
+    // Simulate API call
+    setTimeout(() => {
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setStatus('idle'), 3000);
+    }, 1500);
+  };
+
   return (
     <div className="space-y-12">
       <div className="flex items-center space-x-4">
@@ -50,33 +67,64 @@ const ContactSection: React.FC = () => {
           </div>
         </div>
         
-        <form className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 space-y-6">
+        <form onSubmit={handleSubmit} className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 space-y-6 relative overflow-hidden">
+          {status === 'success' && (
+            <div className="absolute inset-0 bg-slate-800/90 backdrop-blur-sm z-10 flex flex-col items-center justify-center text-center p-6 animate-in fade-in duration-300">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-4 text-green-500">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Message Sent!</h3>
+              <p className="text-slate-400">Thanks for reaching out. I'll get back to you soon.</p>
+            </div>
+          )}
+
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-400">Full Name</label>
             <input 
               type="text" 
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 text-white transition-colors"
               placeholder="Your Name"
+              disabled={status === 'submitting'}
             />
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-400">Email Address</label>
             <input 
               type="email" 
+              required
+              value={formData.email}
+              onChange={(e) => setFormData({...formData, email: e.target.value})}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 text-white transition-colors"
               placeholder="you@example.com"
+              disabled={status === 'submitting'}
             />
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-slate-400">Message</label>
             <textarea 
               rows={4}
+              required
+              value={formData.message}
+              onChange={(e) => setFormData({...formData, message: e.target.value})}
               className="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 focus:outline-none focus:border-indigo-500 text-white transition-colors resize-none"
               placeholder="Tell me about your project..."
+              disabled={status === 'submitting'}
             />
           </div>
-          <button className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition-all transform active:scale-95 shadow-lg shadow-indigo-600/30">
-            Send Message
+          <button 
+            type="submit"
+            disabled={status === 'submitting'}
+            className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold transition-all transform active:scale-95 shadow-lg shadow-indigo-600/30 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
+          >
+            {status === 'submitting' ? (
+              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            ) : "Send Message"}
           </button>
         </form>
       </div>

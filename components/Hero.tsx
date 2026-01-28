@@ -13,10 +13,16 @@ const Hero: React.FC = () => {
       <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-4">
         Hi, I'm <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">{PERSONAL_INFO.name.split(' ')[0]}</span>
       </h1>
-      <h2 className="text-xl md:text-2xl text-slate-400 font-medium mb-8 mono">
+      <h2 className="text-xl md:text-2xl text-slate-400 font-medium mb-6 mono">
         {PERSONAL_INFO.title}
       </h2>
-      <p className="max-w-2xl text-slate-300 leading-relaxed text-lg mb-10">
+      
+      {/* New Headline Section */}
+      <h3 className="text-2xl md:text-3xl font-bold text-slate-200 mb-8 max-w-3xl">
+        {PERSONAL_INFO.headline}
+      </h3>
+
+      <p className="max-w-2xl text-slate-400 leading-relaxed text-lg mb-10">
         {PERSONAL_INFO.summary}
       </p>
       

@@ -10,6 +10,8 @@ import ContactSection from './components/ContactSection';
 import AIAssistant from './components/AIAssistant';
 
 const App: React.FC = () => {
+  const [isAIAssistantOpen, setIsAIAssistantOpen] = useState(false);
+
   return (
     <div className="min-h-screen relative">
       <Navbar />
@@ -22,7 +24,7 @@ const App: React.FC = () => {
           <ExperienceSection />
         </section>
         <section id="projects">
-          <ProjectsSection />
+          <ProjectsSection onOpenAI={() => setIsAIAssistantOpen(true)} />
         </section>
         <section id="education">
           <EducationSection />
@@ -39,7 +41,7 @@ const App: React.FC = () => {
       </footer>
 
       {/* Floating AI Assistant Chatbot */}
-      <AIAssistant />
+      <AIAssistant isOpen={isAIAssistantOpen} setIsOpen={setIsAIAssistantOpen} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Chat } from "@google/genai";
 import { PERSONAL_INFO, SKILLS, EXPERIENCES, PROJECTS, EDUCATIONS } from "../constants";
 
 const SYSTEM_INSTRUCTION = `
@@ -16,26 +16,21 @@ Utkarsh's Details:
 
 Guidelines:
 - Be professional, polite, and confident.
-- Keep answers concise but informative.
+- Keep answers concise but informative (under 3 sentences ideally unless asked for details).
 - If you don't know the answer based on the provided data, suggest they contact Utkarsh directly.
 - Emphasize his experience with IBM, AI, and Data Analysis.
+- You are representing Utkarsh, so you can speak in the first person ("I") or third person ("Utkarsh"), but consistency is key. Third person is usually safer for a bot representation.
 `;
 
-export async function askResumeQuestion(question: string) {
-  try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-    const response = await ai.models.generateContent({
-      model: 'gemini-3-flash-preview',
-      contents: question,
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.7,
-      },
-    });
-
-    return response.text || "I'm sorry, I couldn't generate a response. Please try again.";
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    return "Error connecting to AI. Please check back later.";
-  }
+export function createChatSession(): Chat {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const chat = ai.chats.create({
+    model: 'gemini-3-flash-preview',
+    config: {
+      systemInstruction: SYSTEM_INSTRUCTION,
+      temperature: 0.7,
+      maxOutputTokens: 500,
+    },
+  });
+  return chat;
 }
